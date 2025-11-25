@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class VectorExercises : MonoBehaviour
@@ -19,6 +22,7 @@ public class VectorExercises : MonoBehaviour
         if (Q2a)
             Question2a();
         if (Q2b)
+            CalculateGameDimensions();
             Question2b(20);
         if (Q2d)
             Question2d();
@@ -34,9 +38,27 @@ public class VectorExercises : MonoBehaviour
             Projection();
     }
 
+    void Update()
+    {
+        if (Q2d)
+        {
+            DebugExtension.DebugArrow(
+                new Vector3(0, 0, 0),
+                new Vector3(5, 5, 0),
+                Color.red,
+                60f);
+        }
+    }
+
     public void CalculateGameDimensions()
     {
+        GameHeight = Camera.main.orthographicSize * 2f;
+        GameWidth = Camera.main.aspect * GameHeight;
 
+        maxX = GameWidth / 2f;
+        maxY = GameHeight / 2f;
+        minX = -maxX;
+        minY = -maxY;
     }
 
     void Question2a()
@@ -53,12 +75,29 @@ public class VectorExercises : MonoBehaviour
 
     void Question2b(int n)
     {
+        for (int i = 0; i < n; i++)
+        {
+            startPt = new Vector2(
+                UnityEngine.Random.Range(-5, 5),
+                UnityEngine.Random.Range(-5, 5));
 
+            endPt = new Vector2(
+                UnityEngine.Random.Range(-5, 5),
+                UnityEngine.Random.Range(-5, 5));
+
+            drawnLine = lineFactory.GetLine(startPt, endPt, 0.02f, Color.black);
+            drawnLine.EnableDrawing(true);
+            Vector2 vec2 = endPt - startPt;
+        }
     }
 
     void Question2d()
     {
-
+        DebugExtension.DebugArrow(
+            new Vector3(0, 0, 0),
+            new Vector3(5, 5, 0),
+            Color.red,
+            60f);
     }
 
     void Question2e(int n)
@@ -66,25 +105,29 @@ public class VectorExercises : MonoBehaviour
         for (int i = 0; i < n; i++)
         {
             startPt = new Vector2(
-                Random.Range(-maxX, maxX), 
-                Random.Range(-maxY, maxY));
+                UnityEngine.Random.Range(-5, 5),
+                UnityEngine.Random.Range(-5, 5));
 
-            // Your code here
-            // ...
+            endPt = new Vector2(
+                UnityEngine.Random.Range(-5, 5),
+                UnityEngine.Random.Range(-5, 5));
 
-            //DebugExtension.DebugArrow(
-            //    new Vector3(0, 0, 0),
-            //    // Your code here,
-            //    Color.white,
-            //    60f);
+            DebugExtension.DebugArrow(
+                new Vector3(0, 0, 0),
+                new Vector3(
+                    UnityEngine.Random.Range(-5, 5),
+                    UnityEngine.Random.Range(-5, 5),
+                    UnityEngine.Random.Range(-5, 5)),
+
+                Color.white, 60f);
         }  
     }
 
     public void Question3a()
     {
         HVector2D a = new HVector2D(3, 5);
-        //HVector2D b = // Your code here;
-        //HVector2D c = // Your code here;
+        HVector2D b = new HVector2D(-4, 2);
+        HVector2D c = new HVector2D(a+b);
 
         DebugExtension.DebugArrow(Vector3.zero, a.ToUnityVector3(), Color.red, 60f);
         // Your code here

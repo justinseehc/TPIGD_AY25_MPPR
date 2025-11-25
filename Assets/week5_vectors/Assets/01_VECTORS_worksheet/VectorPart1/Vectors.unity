@@ -206,7 +206,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   Q2a: 0
   Q2b: 0
   Q2d: 0
-  Q2e: 0
+  Q2e: 1
   Q3a: 0
   Q3b: 0
   Q3c: 0
