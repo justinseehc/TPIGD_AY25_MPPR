@@ -2,16 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Numerics;
 
 //[Serializable]
 public class HVector2D
 {
     public float x, y;
     public float h;
-
-    HVector2D vec1 = new HVector2D(5f, 3f);
-    Vector2 vec2 = new Vector2(vec1.x, vec1.y);
 
     public HVector2D(float _x, float _y)
     {
@@ -56,7 +52,7 @@ public class HVector2D
 
     public float Magnitude()
     {
-        return Math.Sqrt(x * x + y * y);
+        return (float)Math.Sqrt(x * x + y * y);
     }
 
     public void Normalize()
@@ -81,14 +77,14 @@ public class HVector2D
 
     // }
 
-    public Vector2 ToUnityVector2()
+    public UnityEngine.Vector2 ToUnityVector2()
     {
-        return Vector2.zero; // change this
+        return UnityEngine.Vector2.zero; // change this
     }
 
-    public Vector3 ToUnityVector3()
+    public UnityEngine.Vector3 ToUnityVector3()
     {
-        return Vector2.zero; // change this
+        return UnityEngine.Vector2.zero; // change this
     }
 
     // public void Print()
