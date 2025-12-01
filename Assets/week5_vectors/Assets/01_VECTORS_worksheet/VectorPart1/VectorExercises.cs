@@ -154,7 +154,13 @@ public class VectorExercises : MonoBehaviour
 
     public void Question3c()
     {
+        HVector2D a = new HVector2D(3, 5);
 
+        float length = (float)Math.Sqrt(a.x * a.x + a.y * a.y);
+        DebugExtension.DebugArrow(Vector3.zero, new Vector3(a.x, a.y, 0), Color.red, 60f);
+        DebugExtension.DebugArrow(new Vector3(1, 0, 0), new Vector3(a.x / length, a.y / length, 0), Color.green, 60f);
+
+        Debug.Log("Magnitude of a = " + a.Magnitude().ToString("F2"));
     }
 
     public void Projection()
