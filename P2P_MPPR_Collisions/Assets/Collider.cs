@@ -3,7 +3,8 @@ using UnityEngine;
 public class CustomBallMovement : MonoBehaviour
 {
     [Header("Settings")]
-    public float speed = 10f;
+    public float speedX = 10f;
+    public float speedY = 10f;
     public Vector2 areaSize = new Vector2(20f, 10f); // Bounds of your "room"
     public LayerMask wallLayer; // Optional: if you want to use objects as walls
 
@@ -36,7 +37,7 @@ public class CustomBallMovement : MonoBehaviour
 
     void MoveBall()
     {
-        float moveDistance = speed * Time.deltaTime;
+        float moveDistance = (speedX + speedY) * Time.deltaTime;
         Vector2 nextPosition = (Vector2)transform.position + (_direction * moveDistance);
 
         // 1. Check Bounds (Manual Math Collision)
@@ -58,6 +59,9 @@ public class CustomBallMovement : MonoBehaviour
             _direction.x *= -1; // Reflect
             // Snap back inside to prevent wall hugging/sticking
             nextPos.x = Mathf.Sign(nextPos.x) * (halfWidth - _skinWidth);
+
+            speedX *= 1.1f;
+            Debug.Log("Speed Increased!");
         }
 
         // Y-axis collision (Top/Bottom walls)
@@ -66,6 +70,9 @@ public class CustomBallMovement : MonoBehaviour
             _direction.y *= -1; // Reflect
             // Snap back inside
             nextPos.y = Mathf.Sign(nextPos.y) * (halfHeight - _skinWidth);
+
+            speedY *= 1.1f;
+            Debug.Log("Speed Increased!");
         }
     }
 
