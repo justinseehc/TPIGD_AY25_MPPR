@@ -12,9 +12,11 @@ public class CustomBallMovement : MonoBehaviour
     private bool _isMoving = false;
     private float _skinWidth = 0.1f; // Prevents "wall hugging" by adding a small buffer
 
-    public float paddleScaleX, paddleScaleY;
     public GameObject mAiPaddle;
-    private float mAiPaddleUpperX, mAiPaddleLowerX, mAiPaddleUpperY, mAiPaddleLowerY;
+    private Vector2 mAiPaddlePosition;
+
+    public GameObject mPlayerPaddle;
+    private Vector2 mPlayerPaddlePosition;
 
     void Update()
     {
@@ -26,6 +28,7 @@ public class CustomBallMovement : MonoBehaviour
 
         if (_isMoving)
         {
+            CalculatePaddlePosition();
             MoveBall();
         }
     }
@@ -79,23 +82,18 @@ public class CustomBallMovement : MonoBehaviour
             //Debug.Log("Speed Increased!");
         }
 
-        CalculatePaddlePosition();
-        //Debug.Log($"{mAiPaddlePosition}, {nextPos}");
-        //// Paddle collision
-        //if (nextPos.x > mAiPaddlePosition.x)
-        //{
-        //    if (nextPos.y <= mAiPaddlePosition.y)
-        //    {
-        //        _direction.x *= -1;
-        //        Debug.Log(nextPos);
-        //    }
-        //}
+        Debug.Log(mPlayerPaddlePosition);
+        // Paddle collision
+        if (nextPos.x >= mAiPaddlePosition.x && nextPos.y < mAiPaddlePosition.y)
+        {
+            _direction.x *= -1;
+        }
     }
 
     private void CalculatePaddlePosition()
     {
-        Vector2 paddlePosition = mAiPaddle.transform.localPosition;
-        mAiPaddleLowerX = (paddlePosition.x / 2f) + (paddleScaleX / 2f)
+        mAiPaddlePosition = mAiPaddle.transform.localPosition;
+        mPlayerPaddlePosition = mPlayerPaddle.transform.localPosition;
     }
 
     // Visualizing the area in the Editor

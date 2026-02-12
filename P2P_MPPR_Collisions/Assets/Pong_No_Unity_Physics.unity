@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 585918439}
   - component: {fileID: 585918438}
   - component: {fileID: 585918440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AIPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585918437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e712ec385c62584bbc045f6655883cb, type: 3}
   m_Name: 
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 1083672603}
   - component: {fileID: 1083672602}
   - component: {fileID: 1083672601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,6 +606,8 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  mAiPaddle: {fileID: 585918437}
+  mPlayerPaddle: {fileID: 1083672600}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
