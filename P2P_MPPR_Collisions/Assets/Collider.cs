@@ -13,8 +13,9 @@ public class CustomBallMovement : MonoBehaviour
     private float _skinWidth = 0.1f; // Prevents "wall hugging" by adding a small buffer
 
     public float paddleScaleX, paddleScaleY;
-    public GameObject mAiPaddle;
-    private float mAiPaddleUpperX, mAiPaddleLowerX, mAiPaddleUpperY, mAiPaddleLowerY;
+    public GameObject mAiPaddle, mPlayerPaddle;
+    private float pPaddleLeft, pPaddleRight, pPaddleTop, pPaddleBottom;
+    private float aiPaddleLeft, aiPaddleRight, aiPaddleTop, aiPaddleBottom;
 
     void Update()
     {
@@ -64,8 +65,8 @@ public class CustomBallMovement : MonoBehaviour
             // Snap back inside to prevent wall hugging/sticking
             nextPos.x = Mathf.Sign(nextPos.x) * (halfWidth - _skinWidth);
 
-            //speedX *= 1.1f;
-            //Debug.Log("Speed Increased!");
+            speedX *= 1.1f;
+            Debug.Log("Speed Increased!");
         }
 
         // Y-axis collision (Top/Bottom walls)
@@ -75,27 +76,33 @@ public class CustomBallMovement : MonoBehaviour
             // Snap back inside
             nextPos.y = Mathf.Sign(nextPos.y) * (halfHeight - _skinWidth);
 
-            //speedY *= 1.1f;
-            //Debug.Log("Speed Increased!");
+            speedY *= 1.1f;
+            Debug.Log("Speed Increased!");
         }
 
         CalculatePaddlePosition();
-        //Debug.Log($"{mAiPaddlePosition}, {nextPos}");
-        //// Paddle collision
-        //if (nextPos.x > mAiPaddlePosition.x)
-        //{
-        //    if (nextPos.y <= mAiPaddlePosition.y)
-        //    {
-        //        _direction.x *= -1;
-        //        Debug.Log(nextPos);
-        //    }
-        //}
+        if (nextPos.y > pPaddleBottom && nextPos.y < pPaddleTop && nextPos.x > pPaddleLeft && nextPos.x < pPaddleRight) 
+        {
+            _direction.x *= -1;
+        } else if (nextPos.y > aiPaddleBottom && nextPos.y < aiPaddleTop && nextPos.x > aiPaddleLeft && nextPos.x < aiPaddleRight)
+        {
+            _direction.x *= -1;
+        }
     }
 
     private void CalculatePaddlePosition()
     {
         Vector2 paddlePosition = mAiPaddle.transform.localPosition;
-        mAiPaddleLowerX = (paddlePosition.x / 2f) + (paddleScaleX / 2f)
+        aiPaddleLeft = paddlePosition.x - (paddleScaleX / 2f);
+        aiPaddleTop = paddlePosition.y + (paddleScaleY / 2f);
+        aiPaddleRight = paddlePosition.x + (paddleScaleX / 2f);
+        aiPaddleBottom = paddlePosition.y - (paddleScaleY / 2f);
+
+        paddlePosition = mPlayerPaddle.transform.localPosition;
+        pPaddleLeft = paddlePosition.x - (paddleScaleX / 2f);
+        pPaddleTop = paddlePosition.y + (paddleScaleY / 2f);
+        pPaddleRight = paddlePosition.x + (paddleScaleX / 2f);
+        pPaddleBottom = paddlePosition.y - (paddleScaleY / 2f);
     }
 
     // Visualizing the area in the Editor
